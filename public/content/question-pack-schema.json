@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Question pack",
+  "type": "object",
+  "required": ["examSlug", "questions"],
+  "properties": {
+    "examSlug": { "type": "string" },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "domain", "stem", "choices", "correctIndex"],
+        "properties": {
+          "id": { "type": "string" },
+          "domain": { "type": "string" },
+          "stem": { "type": "string" },
+          "choices": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2
+          },
+          "correctIndex": { "type": "integer", "minimum": 0 },
+          "explanation": { "type": "string" },
+          "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] }
+        }
+      }
+    }
+  }
+}

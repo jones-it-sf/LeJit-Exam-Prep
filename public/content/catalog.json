@@ -1,0 +1,30 @@
+{
+  "$schema": "./catalog-schema.json",
+  "exams": [
+    {
+      "slug": "cissp",
+      "title": "CISSP",
+      "vendor": "ISC2",
+      "questionCount": 1462,
+      "domains": [
+        "Security and risk management",
+        "Asset security",
+        "Security architecture and engineering",
+        "Communication and network security",
+        "Identity and access management",
+        "Security assessment and testing",
+        "Security operations",
+        "Software development security"
+      ]
+    },
+    {
+      "slug": "sec-plus",
+      "title": "Security+ (SY0-701)",
+      "vendor": "CompTIA",
+      "questionCount": 606,
+      "domains": [
+        "SEC PLUS (Topic 1)"
+      ]
+    }
+  ]
+}

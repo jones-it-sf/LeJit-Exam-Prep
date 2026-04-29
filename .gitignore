@@ -1,0 +1,9 @@
+dist
+node_modules
+tmp
+*.local
+.DS_Store
+*.tsbuildinfo
+
+# Source exam PDFs (large; re-import locally; questions live under public/content/)
+Exam Material/

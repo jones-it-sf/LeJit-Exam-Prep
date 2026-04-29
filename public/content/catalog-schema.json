@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exam catalog",
+  "type": "object",
+  "required": ["exams"],
+  "properties": {
+    "exams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slug", "title", "vendor", "questionCount"],
+        "properties": {
+          "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "title": { "type": "string" },
+          "vendor": { "type": "string" },
+          "questionCount": { "type": "integer", "minimum": 0 },
+          "domains": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

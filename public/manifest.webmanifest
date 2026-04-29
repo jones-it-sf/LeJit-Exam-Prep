@@ -1,0 +1,8 @@
+{
+  "name": "LeJit Exam Prep",
+  "short_name": "LeJit",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f7f7f7",
+  "theme_color": "#fafaf9"
+}
