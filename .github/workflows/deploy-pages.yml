@@ -34,6 +34,10 @@ jobs:
           # Default: project Pages URL `https://<user>.github.io/<repo>/` — set repo variable `VITE_PAGES_BASE` to `/` for org/root sites.
           VITE_PAGES_BASE: ${{ vars.VITE_PAGES_BASE }}
         run: |
+          if [ -z "$VITE_AUTH_HASH_HEX" ]; then
+            echo "::error::Missing Actions secret EXAM_AUTH_HASH_HEX. In the repo: Settings → Secrets and variables → Actions → New repository secret. Name: EXAM_AUTH_HASH_HEX, Value: 64-char hex from \`npm run gen-auth-hash -- 'your-passphrase'\` (hash only, no quotes). Then re-run this workflow."
+            exit 1
+          fi
           if [ -z "$VITE_PAGES_BASE" ]; then
             export VITE_PAGES_BASE="/${GITHUB_REPOSITORY##*/}/"
           fi
