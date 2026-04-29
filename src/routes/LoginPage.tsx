@@ -44,11 +44,8 @@ export default function LoginPage() {
 
           {!authConfigured ? (
             <div className="mb-6 rounded-[6px] border border-[var(--border)] bg-stone-50 p-3 text-[12px] text-stone-600 dark:bg-stone-900 dark:text-stone-400">
-              Auth not configured. Set{" "}
-              <code className="rounded-[2px] bg-white px-1 dark:bg-stone-950">
-                VITE_AUTH_HASH_HEX
-              </code>{" "}
-              in your environment.
+              Auth not configured for this build. The CI deploy must set a repository
+              secret (see <code className="text-[11px]">DEPLOYMENT.md</code>).
             </div>
           ) : null}
 

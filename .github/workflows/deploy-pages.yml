@@ -31,13 +31,20 @@ jobs:
 
       - name: Build
         env:
-          VITE_AUTH_HASH_HEX: ${{ secrets.EXAM_AUTH_HASH_HEX }}
+          # Either repository secret name works. Only this env var (with VITE_ prefix)
+          # is read by Vite and baked into the JS; GitHub secret names are arbitrary.
+          VITE_AUTH_HASH_HEX: ${{ secrets.EXAM_AUTH_HASH_HEX || secrets.VITE_AUTH_HASH_HEX }}
           # Default: project Pages URL `https://<user>.github.io/<repo>/` — set repo variable `VITE_PAGES_BASE` to `/` for org/root sites.
           VITE_PAGES_BASE: ${{ vars.VITE_PAGES_BASE }}
         run: |
           if [ -z "$VITE_AUTH_HASH_HEX" ]; then
-            echo "::error::Missing or empty EXAM_AUTH_HASH_HEX. In GitHub: Settings → Secrets and variables → Actions → add a Repository secret named EXAM_AUTH_HASH_HEX (not VITE_AUTH_HASH_HEX) with the 64-char hex from: npm run gen-auth-hash -- 'passphrase' — re-run the workflow. See DEPLOYMENT.md"
+            echo "::error::At least one of repository secrets EXAM_AUTH_HASH_HEX or VITE_AUTH_HASH_HEX must be set to the 64-char hex (hash only) from: npm run gen-auth-hash. See DEPLOYMENT.md"
             exit 1
+          fi
+          # Do not log the value; length should be 64 for a SHA-256 hex string.
+          echo "Passphrase hash length: ${#VITE_AUTH_HASH_HEX} (expected 64)"
+          if [ "${#VITE_AUTH_HASH_HEX}" -ne 64 ]; then
+            echo "::warning::Hash length is not 64. Secret value may include extra characters (newline, spaces, or the whole VITE_AUTH_HASH_HEX=... line). Re-paste only the 64 hex characters."
           fi
           if [ -z "$VITE_PAGES_BASE" ]; then
             export VITE_PAGES_BASE="/${GITHUB_REPOSITORY##*/}/"

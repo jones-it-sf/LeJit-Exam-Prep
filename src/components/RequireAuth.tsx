@@ -14,11 +14,21 @@ export function RequireAuth({ children }: { children: ReactNode }) {
           Access is not configured
         </p>
         <p className="mt-3 leading-relaxed">
-          This deployment is missing{" "}
+          This static build was produced without a passphrase hash baked in. In GitHub
+          Actions, set a repository secret{" "}
+          <code className="rounded-[2px] border border-stone-300 bg-stone-100 px-1 dark:border-stone-700 dark:bg-stone-900">
+            EXAM_AUTH_HASH_HEX
+          </code>{" "}
+          (or{" "}
           <code className="rounded-[2px] border border-stone-300 bg-stone-100 px-1 dark:border-stone-700 dark:bg-stone-900">
             VITE_AUTH_HASH_HEX
           </code>
-          . Set it at build time (see CI documentation).
+          ) to the 64‑character hex from{" "}
+          <code className="rounded-[2px] border border-stone-300 bg-stone-100 px-1 dark:border-stone-700 dark:bg-stone-900">
+            npm run gen-auth-hash
+          </code>
+          , then redeploy. See <code className="text-[12px]">DEPLOYMENT.md</code> in
+          the repo.
         </p>
       </div>
     );
