@@ -15,7 +15,9 @@ npm run dev
 
 ### GitHub Pages
 
-1. Repository secret **`EXAM_AUTH_HASH_HEX`** should contain only the lowercase hex hash from `npm run gen-auth-hash`.
+1. **Repository secret** **`EXAM_AUTH_HASH_HEX`**: the value must be only the 64‑character **hex** from `npm run gen-auth-hash` (the secret **name** is `EXAM_AUTH_HASH_HEX` — it is not named `VITE_AUTH_HASH_HEX` in GitHub; the workflow maps it to `VITE_AUTH_HASH_HEX` for the build).
+
+   **Important:** add it under **Settings → Secrets and variables → Actions** as a **Repository** secret. Secrets added only under **Environments** (e.g. `github-pages`) are **not** available to the build job in this workflow unless you duplicate the same name at the repository level.
 2. In **Settings → Pages**, select **GitHub Actions** once the workflow publishes successfully.
 3. By default builds use **`/<repository>/`** as `VITE_PAGES_BASE` for project sites. Publish from the repository root (`/`) instead by defining repository variable **`VITE_PAGES_BASE`** with value `/`.
 4. Pushes to **`main`** run `.github/workflows/deploy-pages.yml`: `npm ci`, `npm run build`, upload `dist/`, deploy via GitHub Pages.

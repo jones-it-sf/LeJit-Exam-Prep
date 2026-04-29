@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -35,7 +36,7 @@ jobs:
           VITE_PAGES_BASE: ${{ vars.VITE_PAGES_BASE }}
         run: |
           if [ -z "$VITE_AUTH_HASH_HEX" ]; then
-            echo "::error::Missing Actions secret EXAM_AUTH_HASH_HEX. In the repo: Settings → Secrets and variables → Actions → New repository secret. Name: EXAM_AUTH_HASH_HEX, Value: 64-char hex from \`npm run gen-auth-hash -- 'your-passphrase'\` (hash only, no quotes). Then re-run this workflow."
+            echo "::error::Missing or empty EXAM_AUTH_HASH_HEX. In GitHub: Settings → Secrets and variables → Actions → add a Repository secret named EXAM_AUTH_HASH_HEX (not VITE_AUTH_HASH_HEX) with the 64-char hex from: npm run gen-auth-hash -- 'passphrase' — re-run the workflow. See DEPLOYMENT.md"
             exit 1
           fi
           if [ -z "$VITE_PAGES_BASE" ]; then
